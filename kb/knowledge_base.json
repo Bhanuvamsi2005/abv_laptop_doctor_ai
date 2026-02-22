@@ -1,0 +1,332 @@
+[
+  {
+    "id": "KB-001",
+    "company": "all",
+    "issue": "wifi disconnecting",
+    "severity": "minor",
+    "solutions": [
+      "Run Windows Network Troubleshooter.",
+      "Update wireless adapter driver.",
+      "Disable power saving for Wi-Fi adapter."
+    ]
+  },
+  {
+    "id": "KB-002",
+    "company": "all",
+    "issue": "slow internet",
+    "severity": "minor",
+    "solutions": [
+      "Restart router and laptop.",
+      "Check background downloads or updates.",
+      "Reconnect to the Wi-Fi network."
+    ]
+  },
+  {
+    "id": "KB-003",
+    "company": "all",
+    "issue": "bluetooth not working",
+    "severity": "minor",
+    "solutions": [
+      "Toggle Bluetooth off and on.",
+      "Update Bluetooth drivers.",
+      "Run Bluetooth Troubleshooter."
+    ]
+  },
+  {
+    "id": "KB-004",
+    "company": "all",
+    "issue": "audio not working",
+    "severity": "minor",
+    "solutions": [
+      "Check volume and mute settings.",
+      "Update audio drivers.",
+      "Run Windows Audio Troubleshooter."
+    ]
+  },
+  {
+    "id": "KB-005",
+    "company": "all",
+    "issue": "battery draining fast",
+    "severity": "warning",
+    "solutions": [
+      "Reduce screen brightness.",
+      "Close unnecessary background apps.",
+      "Check battery health report."
+    ]
+  },
+  {
+    "id": "KB-006",
+    "company": "all",
+    "issue": "laptop overheating",
+    "severity": "warning",
+    "solutions": [
+      "Clean air vents.",
+      "Check CPU usage.",
+      "Update BIOS if needed."
+    ]
+  },
+  {
+    "id": "KB-007",
+    "company": "all",
+    "issue": "laptop running slow",
+    "severity": "minor",
+    "solutions": [
+      "Disable startup programs.",
+      "Scan for malware.",
+      "Upgrade RAM or switch to SSD if possible."
+    ]
+  },
+  {
+    "id": "KB-008",
+    "company": "all",
+    "issue": "screen flickering",
+    "severity": "warning",
+    "solutions": [
+      "Update display drivers.",
+      "Check refresh rate settings.",
+      "Test with external monitor."
+    ]
+  },
+  {
+    "id": "KB-009",
+    "company": "all",
+    "issue": "keyboard not responding",
+    "severity": "warning",
+    "solutions": [
+      "Reconnect external keyboard if used.",
+      "Update keyboard drivers.",
+      "Check for hardware damage."
+    ]
+  },
+  {
+    "id": "KB-010",
+    "company": "all",
+    "issue": "touchpad not working",
+    "severity": "minor",
+    "solutions": [
+      "Enable touchpad from settings.",
+      "Update touchpad drivers.",
+      "Restart the laptop."
+    ]
+  },
+  {
+    "id": "KB-011",
+    "company": "all",
+    "issue": "application crashing",
+    "severity": "minor",
+    "solutions": [
+      "Update the application.",
+      "Reinstall the application.",
+      "Check system compatibility."
+    ]
+  },
+  {
+    "id": "KB-012",
+    "company": "all",
+    "issue": "windows update stuck",
+    "severity": "minor",
+    "solutions": [
+      "Restart the laptop.",
+      "Run Windows Update Troubleshooter.",
+      "Clear update cache."
+    ]
+  },
+  {
+    "id": "KB-013",
+    "company": "all",
+    "issue": "disk space full",
+    "severity": "minor",
+    "solutions": [
+      "Delete temporary files.",
+      "Uninstall unused applications.",
+      "Move files to external storage."
+    ]
+  },
+  {
+    "id": "KB-014",
+    "company": "all",
+    "issue": "blue screen error",
+    "severity": "warning",
+    "solutions": [
+      "Restart the laptop.",
+      "Check recent driver or software changes.",
+      "Run hardware diagnostics."
+    ]
+  },
+  {
+    "id": "KB-015",
+    "company": "all",
+    "issue": "laptop not turning on",
+    "severity": "critical",
+    "solutions": [
+      "Check power adapter and cable.",
+      "Perform hard reset (remove battery if possible).",
+      "Contact hardware support."
+    ]
+  },
+  {
+    "id": "KB-016",
+    "company": "all",
+    "issue": "hard disk failure",
+    "severity": "critical",
+    "solutions": [
+      "Run disk diagnostics if accessible.",
+      "Backup data immediately.",
+      "Replace the hard disk."
+    ]
+  },
+  {
+    "id": "KB-017",
+    "company": "all",
+    "issue": "motherboard failure",
+    "severity": "critical",
+    "solutions": [
+      "Verify power and hardware connections.",
+      "Run professional diagnostics.",
+      "Replace motherboard via authorized service."
+    ]
+  },
+  {
+    "id": "KB-018",
+    "company": "all",
+    "issue": "liquid spill damage",
+    "severity": "critical",
+    "solutions": [
+      "Turn off laptop immediately.",
+      "Disconnect power source.",
+      "Send device to repair center urgently."
+    ]
+  },
+  {
+    "id": "KB-019",
+    "company": "all",
+    "issue": "ssd failure",
+    "severity": "critical",
+    "solutions": [
+      "Check BIOS detection of SSD.",
+      "Run storage diagnostics.",
+      "Replace SSD if failure confirmed."
+    ]
+  },
+  {
+    "id": "KB-020",
+    "company": "all",
+    "issue": "ram failure",
+    "severity": "critical",
+    "solutions": [
+      "Run memory diagnostics.",
+      "Reseat RAM modules if accessible.",
+      "Replace faulty RAM."
+    ]
+  },
+  {
+    "id": "KB-021",
+    "company": "all",
+    "issue": "gpu failure",
+    "severity": "critical",
+    "solutions": [
+      "Test with external display.",
+      "Update graphics drivers if system boots.",
+      "Replace GPU / motherboard if required."
+    ]
+  },
+  {
+    "id": "KB-022",
+    "company": "all",
+    "issue": "laptop not charging",
+    "severity": "warning",
+    "solutions": [
+      "Check charger and cable.",
+      "Inspect charging port.",
+      "Update battery drivers."
+    ]
+  },
+  {
+    "id": "KB-023",
+    "company": "all",
+    "issue": "charging port damaged",
+    "severity": "critical",
+    "solutions": [
+      "Avoid forcing charger connection.",
+      "Inspect port for physical damage.",
+      "Replace charging port."
+    ]
+  },
+  {
+    "id": "KB-024",
+    "company": "all",
+    "issue": "operating system not booting",
+    "severity": "critical",
+    "solutions": [
+      "Run startup repair.",
+      "Check boot order in BIOS.",
+      "Reinstall OS if necessary."
+    ]
+  },
+  {
+    "id": "KB-025",
+    "company": "all",
+    "issue": "data loss",
+    "severity": "critical",
+    "solutions": [
+      "Stop using the device immediately.",
+      "Run data recovery tools.",
+      "Consult professional recovery service."
+    ]
+  },
+  {
+    "id": "KB-026",
+    "company": "all",
+    "issue": "fan not working",
+    "severity": "warning",
+    "solutions": [
+      "Check for dust blockage.",
+      "Run hardware diagnostics.",
+      "Replace cooling fan."
+    ]
+  },
+  {
+    "id": "KB-027",
+    "company": "all",
+    "issue": "display not working",
+    "severity": "critical",
+    "solutions": [
+      "Test with external monitor.",
+      "Check display cable connection.",
+      "Replace display panel if required."
+    ]
+  },
+  {
+    "id": "KB-028",
+    "company": "all",
+    "issue": "usb ports not working",
+    "severity": "warning",
+    "solutions": [
+      "Check device manager for USB errors.",
+      "Update chipset drivers.",
+      "Test with different USB devices."
+    ]
+  },
+  {
+    "id": "KB-029",
+    "company": "all",
+    "issue": "bios corruption",
+    "severity": "critical",
+    "solutions": [
+      "Attempt BIOS recovery procedure.",
+      "Reset CMOS if supported.",
+      "Reflash BIOS via service center."
+    ]
+  },
+  {
+    "id": "KB-030",
+    "company": "all",
+    "issue": "screen cracked",
+    "severity": "warning",
+    "solutions": [
+      "Avoid applying pressure to screen.",
+      "Use external monitor if needed.",
+      "Replace display panel."
+    ]
+  }
+]

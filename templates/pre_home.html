@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Doctor AI - Professional Laptop Troubleshooting</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0c0f;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Dark Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 102, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+
+        /* Animated Gradient Overlay */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 102, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            from { transform: translateY(100vh) translateX(0); }
+            to { transform: translateY(-100vh) translateX(100px); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Main Content */
+        .content {
+            background: rgba(18, 22, 28, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 40px;
+            padding: 70px 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .content:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo/Icon */
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 48px;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 30px -10px rgba(0, 102, 255, 0.3);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #0066ff, #0052cc);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .logo-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 30px 40px -10px rgba(0, 102, 255, 0.5);
+        }
+
+        .logo-icon:hover::after {
+            opacity: 0.5;
+        }
+
+        /* Title */
+        h1 {
+            font-size: 58px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            color: #0066ff;
+            position: relative;
+            display: inline-block;
+            cursor: default;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0066ff, transparent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 18px;
+            color: #8b949e;
+            margin-bottom: 45px;
+            line-height: 1.7;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 55px;
+            background: #0066ff;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px -5px rgba(0, 102, 255, 0.3);
+            text-decoration: none;
+            margin-bottom: 55px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #0052cc;
+            box-shadow: 0 20px 30px -5px rgba(0, 102, 255, 0.5);
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button i {
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(8px);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Features */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 55px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            flex: 1;
+            min-width: 140px;
+            padding: 22px 15px;
+            background: rgba(0, 102, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 102, 255, 0.08);
+            border-color: rgba(0, 102, 255, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0, 102, 255, 0.3);
+        }
+
+        .feature-item i {
+            font-size: 34px;
+            color: #0066ff;
+            margin-bottom: 12px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover i {
+            transform: scale(1.1) rotate(5deg);
+            color: #4d94ff;
+        }
+
+        .feature-item span {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .feature-item:hover span {
+            color: #0066ff;
+        }
+
+        /* Footer with Social Media */
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 0 15px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 102, 255, 0.05);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b949e;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: #0066ff;
+            border-color: #0066ff;
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0, 102, 255, 0.4);
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link i {
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            margin-top: 20px;
+            color: #8b949e;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 102, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .contact-item i {
+            color: #0066ff;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .contact-item span {
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover span {
+            color: #ffffff;
+        }
+
+        /* Copyright */
+        .copyright {
+            margin-top: 25px;
+            color: #6b7a88;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* Cursor hover effect */
+        .cursor-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 102, 255, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(0, 102, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 50px 30px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+                padding: 0 10px;
+                margin-bottom: 35px;
+            }
+
+            .cta-button {
+                padding: 16px 40px;
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+
+            .features {
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+
+            .feature-item {
+                min-width: 120px;
+                padding: 18px 12px;
+            }
+
+            .footer {
+                gap: 10px;
+            }
+
+            .social-link {
+                width: 42px;
+                height: 42px;
+                font-size: 18px;
+            }
+
+            .contact-info {
+                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Grid Background -->
+    <div class="grid-background"></div>
+    <div class="gradient-overlay"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Cursor Effect -->
+    <div class="cursor-effect" id="cursorEffect"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content">
+            <!-- Logo -->
+            <div class="logo-icon">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+
+            <!-- Title -->
+            <h1>
+                <span class="highlight">Laptop Doctor</span> AI
+            </h1>
+
+            <!-- Subtitle -->
+            <div class="subtitle">
+                Enterprise-grade AI-powered laptop diagnostics and troubleshooting.
+                Trusted by IT professionals worldwide for instant, accurate solutions.
+            </div>
+
+            <!-- Get Started Button -->
+            <a href="/signup" class="cta-button">
+                <span>Get Started</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Diagnostics</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Instant Solutions</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Enterprise Security</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </div>
+            </div>
+
+            <!-- Footer with Social Media -->
+            <div class="footer">
+                <a href="https://www.linkedin.com/in/achanta-bhanu-vamsi/" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://github.com/Bhanuvamsi2005" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" title="Slack">
+                    <i class="fab fa-slack"></i>
+                </a>
+                <a href="#" class="social-link" title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>bhanuvamsia@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 8341930765</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Vijayawada, Andhra Pradesh</span>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                © 2026 Laptop Doctor AI. All rights reserved. Enterprise Edition.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                // Random properties
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 15 + 10;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.background = `rgba(0, 102, 255, ${Math.random() * 0.3})`;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Cursor effect
+        const cursor = document.getElementById('cursorEffect');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.width = '30px';
+            cursor.style.height = '30px';
+            cursor.style.background = 'rgba(0, 102, 255, 0.5)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.background = 'rgba(0, 102, 255, 0.3)';
+        });
+
+        // Hover effect for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .feature-item, .social-link, .contact-item, .logo-icon');
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.background = 'rgba(0, 102, 255, 0.2)';
+                cursor.style.border = '2px solid rgba(0, 102, 255, 0.8)';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.background = 'rgba(0, 102, 255, 0.3)';
+                cursor.style.border = '1px solid rgba(0, 102, 255, 0.5)';
+            });
+        });
+
+        // Mouse move parallax for grid
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+
+            const grid = document.querySelector('.grid-background');
+            grid.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createParticles();
+        });
+    </script>
+</body>
+</html>

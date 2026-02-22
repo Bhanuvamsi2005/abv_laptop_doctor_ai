@@ -1,0 +1,2684 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Laptop Doctor</title>-->
+
+<!--    <style>-->
+<!--        :root {-->
+<!--            &#45;&#45;bg: #ffffff;-->
+<!--            &#45;&#45;panel: #f7f7f8;-->
+<!--            &#45;&#45;user-msg: #10a37f;-->
+<!--            &#45;&#45;bot-msg: #f1f1f3;-->
+<!--            &#45;&#45;text: #1f1f1f;-->
+<!--            &#45;&#45;border: #e5e5e5;-->
+<!--        }-->
+
+<!--        body.dark {-->
+<!--            &#45;&#45;bg: #343541;-->
+<!--            &#45;&#45;panel: #444654;-->
+<!--            &#45;&#45;user-msg: #10a37f;-->
+<!--            &#45;&#45;bot-msg: #40414f;-->
+<!--            &#45;&#45;text: #ececf1;-->
+<!--            &#45;&#45;border: #565869;-->
+<!--        }-->
+
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background: var(&#45;&#45;bg);-->
+<!--            color: var(&#45;&#45;text);-->
+<!--            height: 100vh;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .chat-container {-->
+<!--            width: 900px;-->
+<!--            max-width: 100%;-->
+<!--            height: 100vh;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        header {-->
+<!--            height: 60px;-->
+<!--            border-bottom: 1px solid var(&#45;&#45;border);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--            padding: 0 20px;-->
+<!--            background: var(&#45;&#45;bg);-->
+<!--            position: sticky;-->
+<!--            top: 0;-->
+<!--        }-->
+
+<!--        header h1 {-->
+<!--            font-size: 18px;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        .controls {-->
+<!--            display: flex;-->
+<!--            gap: 18px;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .icon-btn {-->
+<!--            cursor: pointer;-->
+<!--            font-size: 20px;-->
+<!--            opacity: 0.7;-->
+<!--            transition: 0.2s;-->
+<!--            text-decoration: none;-->
+<!--            color: var(&#45;&#45;text);-->
+<!--        }-->
+
+<!--        .icon-btn:hover {-->
+<!--            opacity: 1;-->
+<!--        }-->
+
+<!--        .chat-box {-->
+<!--            flex: 1;-->
+<!--            overflow-y: auto;-->
+<!--            background: var(&#45;&#45;panel);-->
+<!--            padding: 30px 20px;-->
+<!--        }-->
+
+<!--        .message {-->
+<!--            max-width: 800px;-->
+<!--            margin: 0 auto 18px auto;-->
+<!--            padding: 16px 20px;-->
+<!--            border-radius: 12px;-->
+<!--            line-height: 1.6;-->
+<!--            white-space: pre-wrap;-->
+<!--            animation: fadeIn 0.2s ease;-->
+<!--        }-->
+
+<!--        .user {-->
+<!--            background: var(&#45;&#45;user-msg);-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .bot {-->
+<!--            background: var(&#45;&#45;bot-msg);-->
+<!--        }-->
+
+<!--        form {-->
+<!--            border-top: 1px solid var(&#45;&#45;border);-->
+<!--            padding: 15px;-->
+<!--            background: var(&#45;&#45;bg);-->
+<!--            position: sticky;-->
+<!--            bottom: 0;-->
+<!--        }-->
+
+<!--        .input-wrapper {-->
+<!--            max-width: 850px;-->
+<!--            margin: 0 auto;-->
+<!--            background: var(&#45;&#45;panel);-->
+<!--            border-radius: 14px;-->
+<!--            display: flex;-->
+<!--            padding: 10px;-->
+<!--            border: 1px solid var(&#45;&#45;border);-->
+<!--        }-->
+
+<!--        input {-->
+<!--            flex: 1;-->
+<!--            border: none;-->
+<!--            background: transparent;-->
+<!--            color: var(&#45;&#45;text);-->
+<!--            font-size: 15px;-->
+<!--            padding: 10px;-->
+<!--            outline: none;-->
+<!--        }-->
+
+<!--        button {-->
+<!--            background: var(&#45;&#45;user-msg);-->
+<!--            border: none;-->
+<!--            color: white;-->
+<!--            padding: 10px 18px;-->
+<!--            border-radius: 10px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        button:hover {-->
+<!--            opacity: 0.9;-->
+<!--        }-->
+
+<!--        @keyframes fadeIn {-->
+<!--            from { opacity: 0; transform: translateY(3px); }-->
+<!--            to { opacity: 1; transform: translateY(0); }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<div class="chat-container">-->
+
+<!--    <header>-->
+<!--        <h1>🔧 Laptop Doctor AI</h1>-->
+
+<!--        <div class="controls">-->
+<!--            <a href="/clear" class="icon-btn">Clear History️</a>-->
+<!--            <span class="icon-btn" id="themeToggle">🌙</span>-->
+<!--        </div>-->
+<!--    </header>-->
+
+<!--    <div class="chat-box" id="chatBox">-->
+<!--        {% for chat in chat_history %}-->
+<!--            <div class="message user">{{ chat.user }}</div>-->
+<!--            <div class="message bot">{{ chat.bot }}</div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+
+<!--    <form method="POST">-->
+<!--        <div class="input-wrapper">-->
+<!--            <input name="message" placeholder="Message Laptop Doctor..." required>-->
+<!--            <button type="submit">Send</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--</div>-->
+
+<!--<script>-->
+<!--    const chatBox = document.getElementById("chatBox");-->
+<!--    chatBox.scrollTop = chatBox.scrollHeight;-->
+
+<!--    const toggle = document.getElementById("themeToggle");-->
+
+<!--    /* &#45;&#45;&#45;&#45; LOAD SAVED THEME &#45;&#45;&#45;&#45; */-->
+<!--    const savedTheme = localStorage.getItem("theme");-->
+
+<!--    if (savedTheme === "dark") {-->
+<!--        document.body.classList.add("dark");-->
+<!--        toggle.textContent = "☀️";-->
+<!--    }-->
+
+<!--    /* &#45;&#45;&#45;&#45; TOGGLE THEME &#45;&#45;&#45;&#45; */-->
+<!--    toggle.onclick = () => {-->
+<!--        document.body.classList.toggle("dark");-->
+
+<!--        if (document.body.classList.contains("dark")) {-->
+<!--            localStorage.setItem("theme", "dark");-->
+<!--            toggle.textContent = "☀️";-->
+<!--        } else {-->
+<!--            localStorage.setItem("theme", "light");-->
+<!--            toggle.textContent = "🌙";-->
+<!--        }-->
+<!--    };-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Laptop Doctor</title>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        * {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height: 100vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 800px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 32px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 90vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            animation: slideUp 0.5s ease-out;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @keyframes slideUp {&ndash;&gt;-->
+<!--&lt;!&ndash;            from {&ndash;&gt;-->
+<!--&lt;!&ndash;                opacity: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;                transform: translateY(20px);&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;            to {&ndash;&gt;-->
+<!--&lt;!&ndash;                opacity: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;                transform: translateY(0);&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Header with gradient */&ndash;&gt;-->
+<!--&lt;!&ndash;        .header {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-bottom: 1px solid rgba(255,255,255,0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.8em;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 600;&ndash;&gt;-->
+<!--&lt;!&ndash;            letter-spacing: -0.5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header h1 span {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 5px 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 0.5em;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: normal;&ndash;&gt;-->
+<!--&lt;!&ndash;            letter-spacing: normal;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .clear-btn {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            right: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 8px 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 500;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            backdrop-filter: blur(10px);&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid rgba(255,255,255,0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .clear-btn:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.3);&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 10px 20px rgba(0,0,0,0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Feedback Toggle Button */&ndash;&gt;-->
+<!--&lt;!&ndash;        .feedback-toggle {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.15);&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 8px 18px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 500;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: inline-flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-left: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            backdrop-filter: blur(10px);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-toggle:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.25);&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-toggle.active {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Feedback Panel */&ndash;&gt;-->
+<!--&lt;!&ndash;        .feedback-panel {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #f8f9ff 0%, #f0f3ff 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-height: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-bottom: 1px solid transparent;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-panel.show {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-height: 300px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-bottom: 1px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-panel h3 {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2em;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-panel h3:before {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: '💬';&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2em;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: grid;&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-template-columns: 1fr 1fr;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form input,&ndash;&gt;-->
+<!--&lt;!&ndash;        .feedback-form textarea {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 2px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: inherit;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form input:focus,&ndash;&gt;-->
+<!--&lt;!&ndash;        .feedback-form textarea:focus {&ndash;&gt;-->
+<!--&lt;!&ndash;            outline: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-color: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form textarea {&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-column: span 2;&ndash;&gt;-->
+<!--&lt;!&ndash;            resize: vertical;&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height: 80px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form button {&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-column: span 2;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 600;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            letter-spacing: 0.5px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form button:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Chat Box */&ndash;&gt;-->
+<!--&lt;!&ndash;        .chat-box {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow-y: auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #fafbff;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .message {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 14px 18px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 22px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 75%;&ndash;&gt;-->
+<!--&lt;!&ndash;            line-height: 1.5;&ndash;&gt;-->
+<!--&lt;!&ndash;            animation: messagePop 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            white-space: pre-wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;            word-wrap: break-word;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @keyframes messagePop {&ndash;&gt;-->
+<!--&lt;!&ndash;            from {&ndash;&gt;-->
+<!--&lt;!&ndash;                opacity: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;                transform: scale(0.95) translateY(5px);&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;            to {&ndash;&gt;-->
+<!--&lt;!&ndash;                opacity: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;                transform: scale(1) translateY(0);&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .user {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-self: flex-end;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-bottom-right-radius: 6px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .bot {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-self: flex-start;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-bottom-left-radius: 6px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Welcome Message */&ndash;&gt;-->
+<!--&lt;!&ndash;        .welcome-message {&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #999;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 20px rgba(0,0,0,0.03);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Chat Input Form */&ndash;&gt;-->
+<!--&lt;!&ndash;        .chat-input {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-top: 1px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input input {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 15px 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 2px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #f8faff;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input input:focus {&ndash;&gt;-->
+<!--&lt;!&ndash;            outline: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-color: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input input::placeholder {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #a0aec0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input button {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 15px 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 600;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: all 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            letter-spacing: 0.5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input button:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px);&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input button:active {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(0);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Typing Indicator */&ndash;&gt;-->
+<!--&lt;!&ndash;        .typing {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-style: italic;&ndash;&gt;-->
+<!--&lt;!&ndash;            opacity: 0.7;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #f0f3ff !important;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #667eea !important;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #e0e7ff !important;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Custom Scrollbar */&ndash;&gt;-->
+<!--&lt;!&ndash;        .chat-box::-webkit-scrollbar {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-box::-webkit-scrollbar-track {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #f1f1f1;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-box::-webkit-scrollbar-thumb {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-box::-webkit-scrollbar-thumb:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Responsive Design */&ndash;&gt;-->
+<!--&lt;!&ndash;        @media (max-width: 600px) {&ndash;&gt;-->
+<!--&lt;!&ndash;            body {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .header h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1.4em;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .clear-btn {&ndash;&gt;-->
+<!--&lt;!&ndash;                position: static;&ndash;&gt;-->
+<!--&lt;!&ndash;                margin-top: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;                display: inline-block;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .feedback-toggle {&ndash;&gt;-->
+<!--&lt;!&ndash;                margin-left: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;                margin-top: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .feedback-form {&ndash;&gt;-->
+<!--&lt;!&ndash;                grid-template-columns: 1fr;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .feedback-form textarea,&ndash;&gt;-->
+<!--&lt;!&ndash;            .feedback-form button {&ndash;&gt;-->
+<!--&lt;!&ndash;                grid-column: span 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .message {&ndash;&gt;-->
+<!--&lt;!&ndash;                max-width: 85%;&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .chat-input {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .chat-input button {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 15px 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Loading Animation for Button */&ndash;&gt;-->
+<!--&lt;!&ndash;        .chat-input button.loading {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: transparent;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input button.loading::after {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: '';&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-left: -10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: -10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 3px solid white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-top-color: transparent;&ndash;&gt;-->
+<!--&lt;!&ndash;            animation: spinner 0.8s linear infinite;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @keyframes spinner {&ndash;&gt;-->
+<!--&lt;!&ndash;            to {&ndash;&gt;-->
+<!--&lt;!&ndash;                transform: rotate(360deg);&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Success Message Animation */&ndash;&gt;-->
+<!--&lt;!&ndash;        @keyframes successPulse {&ndash;&gt;-->
+<!--&lt;!&ndash;            0% { transform: scale(1); }&ndash;&gt;-->
+<!--&lt;!&ndash;            50% { transform: scale(1.05); }&ndash;&gt;-->
+<!--&lt;!&ndash;            100% { transform: scale(1); }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .success-message {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #10b981;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            animation: successPulse 0.5s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="chat-container">&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; Header with Feedback Toggle &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="header">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h1>&ndash;&gt;-->
+<!--&lt;!&ndash;                    🔧 Laptop Doctor AI&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span>v2.0</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </h1>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="feedback-toggle" onclick="toggleFeedback()" id="feedbackToggleBtn">&ndash;&gt;-->
+<!--&lt;!&ndash;                    💬 Give Feedback&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="/clear" class="clear-btn">Clear Chat</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Feedback Panel (Hidden by default) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="feedback-panel" id="feedbackPanel">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3>Share Your Feedback</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <form method="POST" action="/submit_feedback" class="feedback-form">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="text" name="name" placeholder="Your Name" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="email" name="email" placeholder="Your Email" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <textarea name="feedback" placeholder="Tell us about your experience with Laptop Doctor AI..." required></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Submit Feedback ✨</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </form>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Chat Box &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="chat-box" id="chatBox">&ndash;&gt;-->
+<!--&lt;!&ndash;        {% if not chat_history %}&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="welcome-message">&ndash;&gt;-->
+<!--&lt;!&ndash;                👋 Hello! I'm your Laptop Doctor AI assistant.<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                Describe your laptop issue and I'll help you fix it.&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;            {% for chat in chat_history %}&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="message user">{{ chat.user }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="message bot">{{ chat.bot }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;        {% endif %}&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Chat Input Form &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <form method="POST" class="chat-input" onsubmit="return handleSubmit(this)">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="text" name="message" placeholder="Describe your laptop issue... (e.g., 'Screen flickering')" required autocomplete="off">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit" id="sendBtn">Send</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;    // Toggle Feedback Panel&ndash;&gt;-->
+<!--&lt;!&ndash;    function toggleFeedback() {&ndash;&gt;-->
+<!--&lt;!&ndash;        const panel = document.getElementById('feedbackPanel');&ndash;&gt;-->
+<!--&lt;!&ndash;        const toggleBtn = document.getElementById('feedbackToggleBtn');&ndash;&gt;-->
+
+<!--&lt;!&ndash;        panel.classList.toggle('show');&ndash;&gt;-->
+<!--&lt;!&ndash;        toggleBtn.classList.toggle('active');&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Change button text based on state&ndash;&gt;-->
+<!--&lt;!&ndash;        if (panel.classList.contains('show')) {&ndash;&gt;-->
+<!--&lt;!&ndash;            toggleBtn.innerHTML = '✕ Close Feedback';&ndash;&gt;-->
+<!--&lt;!&ndash;        } else {&ndash;&gt;-->
+<!--&lt;!&ndash;            toggleBtn.innerHTML = '💬 Give Feedback';&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Handle form submission with loading animation&ndash;&gt;-->
+<!--&lt;!&ndash;    function handleSubmit(form) {&ndash;&gt;-->
+<!--&lt;!&ndash;        const input = form.querySelector('input[name="message"]');&ndash;&gt;-->
+<!--&lt;!&ndash;        const button = form.querySelector('button[type="submit"]');&ndash;&gt;-->
+
+<!--&lt;!&ndash;        if (!input.value.trim()) {&ndash;&gt;-->
+<!--&lt;!&ndash;            return false;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Add loading animation to button&ndash;&gt;-->
+<!--&lt;!&ndash;        button.classList.add('loading');&ndash;&gt;-->
+<!--&lt;!&ndash;        button.textContent = '';&ndash;&gt;-->
+
+<!--&lt;!&ndash;        return true; // Allow form submission&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Auto-scroll chat to bottom&ndash;&gt;-->
+<!--&lt;!&ndash;    const chatBox = document.getElementById('chatBox');&ndash;&gt;-->
+<!--&lt;!&ndash;    if (chatBox) {&ndash;&gt;-->
+<!--&lt;!&ndash;        chatBox.scrollTop = chatBox.scrollHeight;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Remove loading state when page loads (after form submission)&ndash;&gt;-->
+<!--&lt;!&ndash;    window.addEventListener('load', function() {&ndash;&gt;-->
+<!--&lt;!&ndash;        const button = document.getElementById('sendBtn');&ndash;&gt;-->
+<!--&lt;!&ndash;        if (button) {&ndash;&gt;-->
+<!--&lt;!&ndash;            button.classList.remove('loading');&ndash;&gt;-->
+<!--&lt;!&ndash;            button.textContent = 'Send';&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Check if feedback should be shown based on URL parameter&ndash;&gt;-->
+<!--&lt;!&ndash;        const urlParams = new URLSearchParams(window.location.search);&ndash;&gt;-->
+<!--&lt;!&ndash;        if (urlParams.get('feedback') === 'success') {&ndash;&gt;-->
+<!--&lt;!&ndash;            alert('Thank you for your feedback! 🙏');&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // MutationObserver to auto-scroll when new messages appear&ndash;&gt;-->
+<!--&lt;!&ndash;    const observer = new MutationObserver(function() {&ndash;&gt;-->
+<!--&lt;!&ndash;        if (chatBox) {&ndash;&gt;-->
+<!--&lt;!&ndash;            chatBox.scrollTop = chatBox.scrollHeight;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+
+<!--&lt;!&ndash;    if (chatBox) {&ndash;&gt;-->
+<!--&lt;!&ndash;        observer.observe(chatBox, { childList: true, subtree: false });&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Handle Enter key (but allow Shift+Enter for new line in feedback)&ndash;&gt;-->
+<!--&lt;!&ndash;    document.querySelectorAll('form').forEach(form => {&ndash;&gt;-->
+<!--&lt;!&ndash;        form.addEventListener('keypress', function(e) {&ndash;&gt;-->
+<!--&lt;!&ndash;            if (e.key === 'Enter' && !e.shiftKey && !e.target.matches('textarea')) {&ndash;&gt;-->
+<!--&lt;!&ndash;                e.preventDefault();&ndash;&gt;-->
+<!--&lt;!&ndash;                this.submit();&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Laptop Doctor</title>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        * {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height: 100vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 800px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 32px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 90vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.8em;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 600;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .header h1 span {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 5px 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 0.5em;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* ✅ Navigation Buttons */&ndash;&gt;-->
+<!--&lt;!&ndash;        .nav-buttons {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nav-btn {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 8px 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: 0.3s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid rgba(255,255,255,0.15);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nav-btn:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.35);&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-1px);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-toggle {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255,255,255,0.15);&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid rgba(255,255,255,0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 8px 18px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-panel {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #f8f9ff;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-height: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: 0.4s ease;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-panel.show {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-height: 300px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: grid;&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-template-columns: 1fr 1fr;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form input,&ndash;&gt;-->
+<!--&lt;!&ndash;        .feedback-form textarea {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 2px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form textarea {&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-column: span 2;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .feedback-form button {&ndash;&gt;-->
+<!--&lt;!&ndash;            grid-column: span 2;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-box {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow-y: auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #fafbff;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .message {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 14px 18px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 22px;&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 75%;&ndash;&gt;-->
+<!--&lt;!&ndash;            white-space: pre-wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .user {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-self: flex-end;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .bot {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .welcome-message {&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #999;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: auto;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-top: 1px solid #eee;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input input {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 2px solid #e0e7ff;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .chat-input button {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 15px 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #667eea;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="chat-container">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; ✅ HEADER WITH HISTORY BUTTON 🚀🔥 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="header">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div style="display:flex; align-items:center; gap:15px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h1>🔧 Laptop Doctor AI <span>v2.0</span></h1>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <button class="feedback-toggle" onclick="toggleFeedback()" id="feedbackToggleBtn">&ndash;&gt;-->
+<!--&lt;!&ndash;                    💬 Give Feedback&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="nav-buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="/history" class="nav-btn">📜 See History</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="/clear" class="nav-btn">🗑 Clear Chat</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Feedback Panel &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="feedback-panel" id="feedbackPanel">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3 style="margin-bottom:10px;">Share Feedback</h3>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <form method="POST" action="/submit_feedback" class="feedback-form">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input name="name" placeholder="Your Name" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input name="email" placeholder="Your Email" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <textarea name="feedback" placeholder="Your feedback..." required></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Submit Feedback ✨</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </form>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Chat Box &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="chat-box" id="chatBox">&ndash;&gt;-->
+<!--&lt;!&ndash;        {% if not chat_history %}&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="welcome-message">&ndash;&gt;-->
+<!--&lt;!&ndash;                👋 Hello! Describe your laptop issue.&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;            {% for chat in chat_history %}&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="message user">{{ chat.user }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="message bot">{{ chat.bot }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;        {% endif %}&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Chat Input &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <form method="POST" class="chat-input">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input name="message" placeholder="Describe your laptop issue..." required>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit">Send</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;function toggleFeedback() {&ndash;&gt;-->
+<!--&lt;!&ndash;    document.getElementById("feedbackPanel").classList.toggle("show");&ndash;&gt;-->
+<!--&lt;!&ndash;}&ndash;&gt;-->
+
+<!--&lt;!&ndash;const chatBox = document.getElementById("chatBox");&ndash;&gt;-->
+<!--&lt;!&ndash;chatBox.scrollTop = chatBox.scrollHeight;&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html>&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Laptop Doctor</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<body style="font-family: Arial; padding:40px;">&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h2>🔧 Laptop Doctor AI</h2>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<a href="/history">📜 History</a>&ndash;&gt;-->
+<!--&lt;!&ndash;<a href="/logout">🚪 Sign Out</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<hr><br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;{% for chat in chat_history %}&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><b>You:</b> {{ chat.user }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><b>Bot:</b> {{ chat.bot }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <hr>&ndash;&gt;-->
+<!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;<form method="POST">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input name="message" placeholder="Describe your laptop issue..." required>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button type="submit">Send</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<br><hr><br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h3>💬 Feedback</h3>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<form method="POST" action="/submit_feedback">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input name="name" placeholder="Name" required><br><br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input name="email" placeholder="Email" required><br><br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <textarea name="feedback" placeholder="Your feedback..." required></textarea><br><br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button type="submit">Submit Feedback</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Laptop Doctor – clean working version</title>-->
+<!--    &lt;!&ndash; Font Awesome icons (blue accent) &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        /* -&#45;&#45;&#45;&#45; CSS variables with BLUE accent -&#45;&#45;&#45;&#45; */-->
+<!--        :root {-->
+<!--            &#45;&#45;bg-primary: #ffffff;-->
+<!--            &#45;&#45;bg-secondary: #f7f7f8;-->
+<!--            &#45;&#45;sidebar-bg: #202123;-->
+<!--            &#45;&#45;sidebar-text: #ececf1;-->
+<!--            &#45;&#45;sidebar-hover: #2a2b32;-->
+<!--            &#45;&#45;border-light: #e5e5e5;-->
+<!--            &#45;&#45;bot-msg-bg: #ffffff;-->
+<!--            &#45;&#45;text-primary: #2d2d2d;-->
+<!--            &#45;&#45;text-secondary: #6b6b6b;-->
+<!--            &#45;&#45;accent: #0066ff;-->
+<!--            &#45;&#45;accent-hover: #0052cc;-->
+<!--            &#45;&#45;accent-light: #4d94ff;-->
+<!--            &#45;&#45;input-bg: #ffffff;-->
+<!--            &#45;&#45;shadow: 0 2px 6px rgba(0,102,255,0.1);-->
+<!--            &#45;&#45;scroll-thumb: #c1c1c1;-->
+<!--            &#45;&#45;scroll-track: #ececf1;-->
+<!--            &#45;&#45;nav-bg: #ffffff;-->
+<!--        }-->
+
+<!--        body.dark {-->
+<!--            &#45;&#45;bg-primary: #343541;-->
+<!--            &#45;&#45;bg-secondary: #444654;-->
+<!--            &#45;&#45;sidebar-bg: #202123;-->
+<!--            &#45;&#45;sidebar-text: #ececf1;-->
+<!--            &#45;&#45;sidebar-hover: #2a2b32;-->
+<!--            &#45;&#45;border-light: #4d4d4f;-->
+<!--            &#45;&#45;bot-msg-bg: #444654;-->
+<!--            &#45;&#45;text-primary: #ececf1;-->
+<!--            &#45;&#45;text-secondary: #b0b0b0;-->
+<!--            &#45;&#45;accent: #4d94ff;-->
+<!--            &#45;&#45;accent-hover: #0066ff;-->
+<!--            &#45;&#45;accent-light: #99bbff;-->
+<!--            &#45;&#45;input-bg: #40414f;-->
+<!--            &#45;&#45;shadow: 0 2px 6px rgba(77,148,255,0.2);-->
+<!--            &#45;&#45;scroll-thumb: #5d5d67;-->
+<!--            &#45;&#45;scroll-track: #2d2d35;-->
+<!--            &#45;&#45;nav-bg: #343541;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;-->
+<!--            background: var(&#45;&#45;bg-secondary);-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            padding: 16px;-->
+<!--            transition: background 0.2s ease;-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        .app-container {-->
+<!--            width: 1200px;-->
+<!--            max-width: 100%;-->
+<!--            height: 90vh;-->
+<!--            display: flex;-->
+<!--            background: var(&#45;&#45;bg-primary);-->
+<!--            border-radius: 24px;-->
+<!--            overflow: hidden;-->
+<!--            box-shadow: 0 0 20px rgba(0,102,255,0.15);-->
+<!--        }-->
+
+<!--        /* -&#45;&#45;&#45;&#45; LEFT SIDEBAR (only working options) -&#45;&#45;&#45;&#45; */-->
+<!--        .sidebar {-->
+<!--            width: 260px;-->
+<!--            background: var(&#45;&#45;sidebar-bg);-->
+<!--            color: var(&#45;&#45;sidebar-text);-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            transition: background 0.2s;-->
+<!--        }-->
+
+<!--        .sidebar-header {-->
+<!--            padding: 16px 16px 8px 16px;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 12px;-->
+<!--        }-->
+
+<!--        .sidebar-header i {-->
+<!--            font-size: 1.8rem;-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            text-shadow: 0 0 10px rgba(0,102,255,0.5);-->
+<!--        }-->
+
+<!--        .sidebar-header h2 {-->
+<!--            font-size: 1.2rem;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        /* New chat - works via /clear */-->
+<!--        .new-chat-btn {-->
+<!--            margin: 12px 16px;-->
+<!--            padding: 12px;-->
+<!--            background: rgba(0,102,255,0.15);-->
+<!--            border: 1px solid rgba(0,102,255,0.3);-->
+<!--            border-radius: 40px;-->
+<!--            color: var(&#45;&#45;sidebar-text);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 10px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.2s;-->
+<!--            font-size: 0.95rem;-->
+<!--        }-->
+
+<!--        .new-chat-btn:hover {-->
+<!--            background: rgba(0,102,255,0.25);-->
+<!--            border-color: var(&#45;&#45;accent);-->
+<!--        }-->
+
+<!--        .new-chat-btn i {-->
+<!--            font-size: 1rem;-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--        }-->
+
+<!--        /* Static history items - purely decorative, no functionality */-->
+<!--        .history-section {-->
+<!--            flex: 1;-->
+<!--            overflow-y: auto;-->
+<!--            padding: 8px 8px;-->
+<!--        }-->
+
+<!--        .history-item {-->
+<!--            padding: 12px 16px;-->
+<!--            margin: 4px 8px;-->
+<!--            border-radius: 24px;-->
+<!--            color: rgba(255,255,255,0.8);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 12px;-->
+<!--            font-size: 0.9rem;-->
+<!--        }-->
+
+<!--        .history-item i {-->
+<!--            width: 20px;-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            font-size: 1rem;-->
+<!--        }-->
+
+<!--        .sidebar-footer {-->
+<!--            padding: 16px;-->
+<!--            border-top: 1px solid rgba(255,255,255,0.1);-->
+<!--        }-->
+
+<!--        /* WORKING BUTTONS ONLY:-->
+<!--           1. Clear chat (link to /clear)-->
+<!--           2. Feedback (opens modal)-->
+<!--           3. Theme toggle (works)-->
+<!--        */-->
+<!--        .sidebar-btn, .theme-toggle-side {-->
+<!--            padding: 12px 16px;-->
+<!--            border-radius: 40px;-->
+<!--            background: rgba(0,102,255,0.1);-->
+<!--            border: 1px solid rgba(0,102,255,0.2);-->
+<!--            color: var(&#45;&#45;sidebar-text);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 12px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.2s;-->
+<!--            width: 100%;-->
+<!--            font-size: 0.95rem;-->
+<!--            margin-bottom: 8px;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+
+<!--        .sidebar-btn:hover, .theme-toggle-side:hover {-->
+<!--            background: rgba(0,102,255,0.2);-->
+<!--            border-color: var(&#45;&#45;accent);-->
+<!--        }-->
+
+<!--        .sidebar-btn i, .theme-toggle-side i {-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            width: 20px;-->
+<!--        }-->
+
+<!--        .theme-toggle-side {-->
+<!--            margin-top: 8px;-->
+<!--            margin-bottom: 0;-->
+<!--        }-->
+
+<!--        /* -&#45;&#45;&#45;&#45; MAIN PANEL (chat area) -&#45;&#45;&#45;&#45; */-->
+<!--        .main-panel {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            background: var(&#45;&#45;bg-primary);-->
+<!--        }-->
+
+<!--        /* Top navbar with ONLY working links: History and Sign Out */-->
+<!--        .navbar {-->
+<!--            padding: 16px 24px;-->
+<!--            border-bottom: 1px solid var(&#45;&#45;border-light);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--            background: var(&#45;&#45;nav-bg);-->
+<!--        }-->
+
+<!--        .nav-left {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 12px;-->
+<!--        }-->
+
+<!--        .mobile-menu-btn {-->
+<!--            display: none;-->
+<!--            background: transparent;-->
+<!--            border: none;-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            font-size: 1.2rem;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        .nav-left h1 {-->
+<!--            font-size: 1.3rem;-->
+<!--            font-weight: 600;-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 8px;-->
+<!--        }-->
+
+<!--        .nav-left h1 span {-->
+<!--            background: var(&#45;&#45;accent);-->
+<!--            color: white;-->
+<!--            padding: 2px 10px;-->
+<!--            border-radius: 30px;-->
+<!--            font-size: 0.7rem;-->
+<!--            font-weight: 500;-->
+<!--            box-shadow: 0 0 10px rgba(0,102,255,0.5);-->
+<!--        }-->
+
+<!--        /* WORKING top links: History and Sign Out */-->
+<!--        .nav-links {-->
+<!--            display: flex;-->
+<!--            gap: 24px;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .nav-links a {-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            text-decoration: none;-->
+<!--            font-size: 0.95rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 6px;-->
+<!--            padding: 8px 12px;-->
+<!--            border-radius: 40px;-->
+<!--            background: rgba(0,102,255,0.05);-->
+<!--            border: 1px solid transparent;-->
+<!--            transition: 0.2s;-->
+<!--        }-->
+
+<!--        .nav-links a:hover {-->
+<!--            background: rgba(0,102,255,0.1);-->
+<!--            border-color: var(&#45;&#45;accent-light);-->
+<!--        }-->
+
+<!--        .nav-links i {-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            font-size: 0.9rem;-->
+<!--        }-->
+
+<!--        /* chat box */-->
+<!--        .chat-box {-->
+<!--            flex: 1;-->
+<!--            padding: 24px;-->
+<!--            overflow-y: auto;-->
+<!--            background: var(&#45;&#45;bg-primary);-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            gap: 16px;-->
+<!--        }-->
+
+<!--        .message {-->
+<!--            padding: 16px 22px;-->
+<!--            border-radius: 24px;-->
+<!--            max-width: 80%;-->
+<!--            line-height: 1.5;-->
+<!--            animation: msgPop 0.25s ease;-->
+<!--            white-space: pre-wrap;-->
+<!--            word-wrap: break-word;-->
+<!--            font-size: 0.95rem;-->
+<!--        }-->
+
+<!--        @keyframes msgPop {-->
+<!--            from { opacity: 0; transform: translateY(6px); }-->
+<!--            to { opacity: 1; transform: translateY(0); }-->
+<!--        }-->
+
+<!--        .user {-->
+<!--            background: var(&#45;&#45;accent);-->
+<!--            color: white;-->
+<!--            align-self: flex-end;-->
+<!--            border-bottom-right-radius: 6px;-->
+<!--            box-shadow: 0 4px 10px rgba(0,102,255,0.3);-->
+<!--        }-->
+
+<!--        .bot {-->
+<!--            background: var(&#45;&#45;bot-msg-bg);-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            align-self: flex-start;-->
+<!--            border-bottom-left-radius: 6px;-->
+<!--            border: 1px solid var(&#45;&#45;border-light);-->
+<!--            box-shadow: var(&#45;&#45;shadow);-->
+<!--        }-->
+
+<!--        .welcome-message {-->
+<!--            text-align: center;-->
+<!--            color: var(&#45;&#45;text-secondary);-->
+<!--            margin: auto;-->
+<!--            padding: 40px 20px;-->
+<!--            max-width: 400px;-->
+<!--        }-->
+
+<!--        .welcome-message i {-->
+<!--            font-size: 3rem;-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            margin-bottom: 16px;-->
+<!--            text-shadow: 0 0 20px rgba(0,102,255,0.5);-->
+<!--        }-->
+
+<!--        /* chat input - works */-->
+<!--        .chat-input-form {-->
+<!--            display: flex;-->
+<!--            padding: 20px 24px;-->
+<!--            background: var(&#45;&#45;bg-primary);-->
+<!--            border-top: 1px solid var(&#45;&#45;border-light);-->
+<!--            gap: 12px;-->
+<!--        }-->
+
+<!--        .input-wrapper {-->
+<!--            flex: 1;-->
+<!--            background: var(&#45;&#45;input-bg);-->
+<!--            border: 1px solid var(&#45;&#45;border-light);-->
+<!--            border-radius: 40px;-->
+<!--            transition: 0.2s;-->
+<!--        }-->
+
+<!--        .input-wrapper:focus-within {-->
+<!--            border-color: var(&#45;&#45;accent);-->
+<!--            box-shadow: 0 0 0 3px rgba(0,102,255,0.2);-->
+<!--        }-->
+
+<!--        .chat-input-form input {-->
+<!--            width: 100%;-->
+<!--            padding: 14px 20px;-->
+<!--            border: none;-->
+<!--            background: transparent;-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            font-size: 0.95rem;-->
+<!--            outline: none;-->
+<!--        }-->
+
+<!--        .chat-input-form button {-->
+<!--            padding: 14px 32px;-->
+<!--            border: none;-->
+<!--            border-radius: 40px;-->
+<!--            background: var(&#45;&#45;accent);-->
+<!--            color: white;-->
+<!--            font-weight: 500;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.15s;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 6px;-->
+<!--            box-shadow: 0 4px 10px rgba(0,102,255,0.3);-->
+<!--        }-->
+
+<!--        .chat-input-form button:hover {-->
+<!--            background: var(&#45;&#45;accent-hover);-->
+<!--            box-shadow: 0 6px 15px rgba(0,102,255,0.4);-->
+<!--        }-->
+
+<!--        .chat-input-form button.loading {-->
+<!--            position: relative;-->
+<!--            color: transparent;-->
+<!--        }-->
+<!--        .chat-input-form button.loading::after {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 18px;-->
+<!--            height: 18px;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            margin-left: -9px;-->
+<!--            margin-top: -9px;-->
+<!--            border: 2px solid white;-->
+<!--            border-radius: 50%;-->
+<!--            border-top-color: transparent;-->
+<!--            animation: spin 0.8s linear infinite;-->
+<!--        }-->
+<!--        @keyframes spin { to { transform: rotate(360deg); } }-->
+
+<!--        /* scrollbar */-->
+<!--        .chat-box::-webkit-scrollbar { width: 8px; }-->
+<!--        .chat-box::-webkit-scrollbar-track { background: var(&#45;&#45;scroll-track); border-radius: 10px; }-->
+<!--        .chat-box::-webkit-scrollbar-thumb {-->
+<!--            background: var(&#45;&#45;accent);-->
+<!--            border-radius: 10px;-->
+<!--        }-->
+<!--        .chat-box::-webkit-scrollbar-thumb:hover {-->
+<!--            background: var(&#45;&#45;accent-hover);-->
+<!--        }-->
+
+<!--        /* feedback modal - works */-->
+<!--        .feedback-modal {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            right: 0;-->
+<!--            bottom: 0;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            z-index: 1000;-->
+<!--            visibility: hidden;-->
+<!--            opacity: 0;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .feedback-modal.show {-->
+<!--            visibility: visible;-->
+<!--            opacity: 1;-->
+<!--        }-->
+
+<!--        .modal-overlay {-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            right: 0;-->
+<!--            bottom: 0;-->
+<!--            background: rgba(0,0,0,0.5);-->
+<!--        }-->
+
+<!--        .modal-content {-->
+<!--            position: relative;-->
+<!--            background: var(&#45;&#45;bg-primary);-->
+<!--            width: 450px;-->
+<!--            max-width: 90%;-->
+<!--            border-radius: 24px;-->
+<!--            padding: 28px;-->
+<!--            z-index: 1001;-->
+<!--            box-shadow: 0 20px 60px rgba(0,102,255,0.3);-->
+<!--            animation: modalSlide 0.3s ease;-->
+<!--        }-->
+
+<!--        @keyframes modalSlide {-->
+<!--            from { transform: translateY(20px); opacity: 0; }-->
+<!--            to { transform: translateY(0); opacity: 1; }-->
+<!--        }-->
+
+<!--        .modal-header {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--            margin-bottom: 24px;-->
+<!--        }-->
+
+<!--        .modal-header h3 {-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            font-size: 1.3rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 10px;-->
+<!--        }-->
+
+<!--        .modal-header h3 i {-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--        }-->
+
+<!--        .close-modal {-->
+<!--            background: transparent;-->
+<!--            border: none;-->
+<!--            color: var(&#45;&#45;text-secondary);-->
+<!--            font-size: 1.3rem;-->
+<!--            cursor: pointer;-->
+<!--            width: 36px;-->
+<!--            height: 36px;-->
+<!--            border-radius: 50%;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .close-modal:hover {-->
+<!--            background: var(&#45;&#45;bg-secondary);-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--        }-->
+
+<!--        .feedback-form-modal {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            gap: 16px;-->
+<!--        }-->
+
+<!--        .feedback-form-modal input,-->
+<!--        .feedback-form-modal textarea {-->
+<!--            padding: 14px 18px;-->
+<!--            border: 1px solid var(&#45;&#45;border-light);-->
+<!--            border-radius: 16px;-->
+<!--            background: var(&#45;&#45;input-bg);-->
+<!--            color: var(&#45;&#45;text-primary);-->
+<!--            font-size: 1rem;-->
+<!--            transition: 0.15s;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        .feedback-form-modal textarea {-->
+<!--            resize: vertical;-->
+<!--            min-height: 120px;-->
+<!--        }-->
+
+<!--        .feedback-form-modal input:focus,-->
+<!--        .feedback-form-modal textarea:focus {-->
+<!--            outline: none;-->
+<!--            border-color: var(&#45;&#45;accent);-->
+<!--            box-shadow: 0 0 0 3px rgba(0,102,255,0.2);-->
+<!--        }-->
+
+<!--        .feedback-form-modal button {-->
+<!--            padding: 16px;-->
+<!--            border: none;-->
+<!--            border-radius: 16px;-->
+<!--            background: var(&#45;&#45;accent);-->
+<!--            color: white;-->
+<!--            font-weight: 600;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.2s;-->
+<!--            font-size: 1rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            gap: 8px;-->
+<!--            margin-top: 8px;-->
+<!--        }-->
+
+<!--        .feedback-form-modal button:hover {-->
+<!--            background: var(&#45;&#45;accent-hover);-->
+<!--        }-->
+
+<!--        /* mobile responsiveness */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .sidebar {-->
+<!--                position: fixed;-->
+<!--                left: -260px;-->
+<!--                top: 0;-->
+<!--                bottom: 0;-->
+<!--                z-index: 100;-->
+<!--                transition: left 0.3s ease;-->
+<!--            }-->
+<!--            .sidebar.open {-->
+<!--                left: 0;-->
+<!--            }-->
+<!--            .mobile-menu-btn {-->
+<!--                display: block;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="app-container">-->
+<!--    &lt;!&ndash; LEFT SIDEBAR (only working options retained) &ndash;&gt;-->
+<!--    <div class="sidebar" id="sidebar">-->
+<!--        <div class="sidebar-header">-->
+<!--            <i class="fas fa-stethoscope"></i>-->
+<!--            <h2>Laptop Doctor</h2>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; NEW CHAT - works (links to /clear) &ndash;&gt;-->
+<!--        <div class="new-chat-btn" onclick="window.location.href='/clear'">-->
+<!--            <i class="fas fa-plus"></i>-->
+<!--            New chat-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Static history - purely visual, no functionality &ndash;&gt;-->
+<!--        <div class="history-section">-->
+<!--            <div class="history-item">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                MacBook Pro issue-->
+<!--            </div>-->
+<!--            <div class="history-item">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Screen flickering-->
+<!--            </div>-->
+<!--            <div class="history-item">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Battery draining fast-->
+<!--            </div>-->
+<!--            <div class="history-item">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Overheating problem-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; SIDEBAR FOOTER with ONLY working buttons &ndash;&gt;-->
+<!--        <div class="sidebar-footer">-->
+<!--            &lt;!&ndash; CLEAR CHAT - works &ndash;&gt;-->
+<!--            <a href="/clear" class="sidebar-btn">-->
+<!--                <i class="fas fa-rotate-right"></i>-->
+<!--                <span>Clear chat</span>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; GIVE FEEDBACK - works (opens modal) &ndash;&gt;-->
+<!--            <div class="sidebar-btn" onclick="openFeedbackModal()">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                <span>Give Feedback</span>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; THEME TOGGLE - works &ndash;&gt;-->
+<!--            <div class="theme-toggle-side" id="sidebarThemeToggle">-->
+<!--                <i class="fas fa-sun" id="sidebarThemeIcon"></i>-->
+<!--                <span id="sidebarThemeText">Light mode</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; MAIN PANEL &ndash;&gt;-->
+<!--    <div class="main-panel">-->
+<!--        &lt;!&ndash; TOP NAVBAR with ONLY working links: History and Sign Out &ndash;&gt;-->
+<!--        <div class="navbar">-->
+<!--            <div class="nav-left">-->
+<!--                <button class="mobile-menu-btn" onclick="toggleSidebar()">-->
+<!--                    <i class="fas fa-bars"></i>-->
+<!--                </button>-->
+<!--                <h1>-->
+<!--                    🔧 Laptop Doctor AI-->
+<!--                    <span>v2.0</span>-->
+<!--                </h1>-->
+<!--            </div>-->
+<!--            <div class="nav-links">-->
+<!--                &lt;!&ndash; HISTORY - works &ndash;&gt;-->
+<!--                <a href="/history"><i class="fas fa-history"></i> History</a>-->
+<!--                &lt;!&ndash; SIGN OUT - works &ndash;&gt;-->
+<!--                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; CHAT MESSAGES - works with template variables &ndash;&gt;-->
+<!--        <div class="chat-box" id="chatBox">-->
+<!--            {% if not chat_history %}-->
+<!--            <div class="welcome-message">-->
+<!--                <i class="fas fa-stethoscope"></i>-->
+<!--                <h3>How can I help with your laptop today?</h3>-->
+<!--                <p style="color: var(&#45;&#45;text-secondary); margin-top: 8px;">Describe your issue and I'll help you fix it.</p>-->
+<!--            </div>-->
+<!--            {% else %}-->
+<!--                {% for chat in chat_history %}-->
+<!--                <div class="message user">{{ chat.user }}</div>-->
+<!--                <div class="message bot">{{ chat.bot }}</div>-->
+<!--                {% endfor %}-->
+<!--            {% endif %}-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; CHAT INPUT FORM - works &ndash;&gt;-->
+<!--        <form method="POST" class="chat-input-form" onsubmit="return handleSubmit(this)">-->
+<!--            <div class="input-wrapper">-->
+<!--                <input type="text" name="message" placeholder="Message Laptop Doctor..." autocomplete="off" required>-->
+<!--            </div>-->
+<!--            <button type="submit" id="sendBtn">-->
+<!--                <i class="fas fa-arrow-up"></i> Send-->
+<!--            </button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; FEEDBACK MODAL - works &ndash;&gt;-->
+<!--    <div class="feedback-modal" id="feedbackModal">-->
+<!--        <div class="modal-overlay" onclick="closeFeedbackModal()"></div>-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h3>-->
+<!--                    <i class="fas fa-pen"></i>-->
+<!--                    Share Feedback-->
+<!--                </h3>-->
+<!--                <button class="close-modal" onclick="closeFeedbackModal()">-->
+<!--                    <i class="fas fa-times"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                &lt;!&ndash; Form submits to /submit_feedback - works &ndash;&gt;-->
+<!--                <form method="POST" action="/submit_feedback" class="feedback-form-modal">-->
+<!--                    <input type="text" name="name" placeholder="Your name" required>-->
+<!--                    <input type="email" name="email" placeholder="Your email" required>-->
+<!--                    <textarea name="feedback" placeholder="How can Laptop Doctor improve?" required></textarea>-->
+<!--                    <button type="submit">-->
+<!--                        <i class="fas fa-paper-plane"></i> Submit feedback-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // Toggle sidebar (mobile)-->
+<!--    function toggleSidebar() {-->
+<!--        document.getElementById('sidebar').classList.toggle('open');-->
+<!--    }-->
+
+<!--    // Feedback modal controls-->
+<!--    function openFeedbackModal() {-->
+<!--        document.getElementById('feedbackModal').classList.add('show');-->
+<!--    }-->
+<!--    function closeFeedbackModal() {-->
+<!--        document.getElementById('feedbackModal').classList.remove('show');-->
+<!--    }-->
+
+<!--    // Handle form submit with loading animation-->
+<!--    function handleSubmit(form) {-->
+<!--        const input = form.querySelector('input[name="message"]');-->
+<!--        const button = form.querySelector('button[type="submit"]');-->
+<!--        if (!input.value.trim()) return false;-->
+<!--        button.classList.add('loading');-->
+<!--        button.textContent = '';-->
+<!--        return true;-->
+<!--    }-->
+
+<!--    // Theme toggle (works)-->
+<!--    const sidebarThemeToggle = document.getElementById('sidebarThemeToggle');-->
+<!--    const sidebarThemeIcon = document.getElementById('sidebarThemeIcon');-->
+<!--    const sidebarThemeText = document.getElementById('sidebarThemeText');-->
+<!--    const body = document.body;-->
+
+<!--    const savedTheme = localStorage.getItem('laptopDoctorTheme');-->
+<!--    if (savedTheme === 'dark') {-->
+<!--        body.classList.add('dark');-->
+<!--        sidebarThemeIcon.className = 'fas fa-moon';-->
+<!--        sidebarThemeText.innerText = 'Dark mode';-->
+<!--    }-->
+
+<!--    sidebarThemeToggle.addEventListener('click', () => {-->
+<!--        body.classList.toggle('dark');-->
+<!--        const isDark = body.classList.contains('dark');-->
+<!--        if (isDark) {-->
+<!--            sidebarThemeIcon.className = 'fas fa-moon';-->
+<!--            sidebarThemeText.innerText = 'Dark mode';-->
+<!--            localStorage.setItem('laptopDoctorTheme', 'dark');-->
+<!--        } else {-->
+<!--            sidebarThemeIcon.className = 'fas fa-sun';-->
+<!--            sidebarThemeText.innerText = 'Light mode';-->
+<!--            localStorage.setItem('laptopDoctorTheme', 'light');-->
+<!--        }-->
+<!--    });-->
+
+<!--    // Auto-scroll chat-->
+<!--    const chatBox = document.getElementById('chatBox');-->
+<!--    if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;-->
+<!--    const observer = new MutationObserver(() => {-->
+<!--        if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;-->
+<!--    });-->
+<!--    if (chatBox) observer.observe(chatBox, { childList: true, subtree: true });-->
+
+<!--    // Reset send button on page load-->
+<!--    window.addEventListener('load', function() {-->
+<!--        const sendBtn = document.getElementById('sendBtn');-->
+<!--        if (sendBtn) {-->
+<!--            sendBtn.classList.remove('loading');-->
+<!--            sendBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Send';-->
+<!--        }-->
+<!--    });-->
+
+<!--    // Enter key to send-->
+<!--    document.querySelectorAll('form').forEach(form => {-->
+<!--        form.addEventListener('keypress', (e) => {-->
+<!--            if (e.key === 'Enter' && !e.shiftKey && e.target.tagName !== 'TEXTAREA') {-->
+<!--                e.preventDefault();-->
+<!--                form.submit();-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Escape closes modal-->
+<!--    document.addEventListener('keydown', (e) => {-->
+<!--        if (e.key === 'Escape') closeFeedbackModal();-->
+<!--    });-->
+
+<!--    // Close sidebar when clicking outside on mobile-->
+<!--    document.addEventListener('click', (e) => {-->
+<!--        const sidebar = document.getElementById('sidebar');-->
+<!--        const menuBtn = document.querySelector('.mobile-menu-btn');-->
+<!--        if (window.innerWidth <= 768) {-->
+<!--            if (!sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('open')) {-->
+<!--                sidebar.classList.remove('open');-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laptop Doctor – clean version</title>
+    <!-- Font Awesome icons (blue accent) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ----- CSS variables with BLUE accent ----- */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f7f8;
+            --sidebar-bg: #202123;
+            --sidebar-text: #ececf1;
+            --sidebar-hover: #2a2b32;
+            --border-light: #e5e5e5;
+            --bot-msg-bg: #ffffff;
+            --text-primary: #2d2d2d;
+            --text-secondary: #6b6b6b;
+            --accent: #0066ff;
+            --accent-hover: #0052cc;
+            --accent-light: #4d94ff;
+            --input-bg: #ffffff;
+            --shadow: 0 2px 6px rgba(0,102,255,0.1);
+            --scroll-thumb: #c1c1c1;
+            --scroll-track: #ececf1;
+            --nav-bg: #ffffff;
+        }
+
+        body.dark {
+            --bg-primary: #343541;
+            --bg-secondary: #444654;
+            --sidebar-bg: #202123;
+            --sidebar-text: #ececf1;
+            --sidebar-hover: #2a2b32;
+            --border-light: #4d4d4f;
+            --bot-msg-bg: #444654;
+            --text-primary: #ececf1;
+            --text-secondary: #b0b0b0;
+            --accent: #4d94ff;
+            --accent-hover: #0066ff;
+            --accent-light: #99bbff;
+            --input-bg: #40414f;
+            --shadow: 0 2px 6px rgba(77,148,255,0.2);
+            --scroll-thumb: #5d5d67;
+            --scroll-track: #2d2d35;
+            --nav-bg: #343541;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            transition: background 0.2s ease;
+            margin: 0;
+        }
+
+        .app-container {
+            width: 1200px;
+            max-width: 100%;
+            height: 90vh;
+            display: flex;
+            background: var(--bg-primary);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,102,255,0.15);
+        }
+
+        /* ----- LEFT SIDEBAR ----- */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            transition: background 0.2s;
+        }
+
+        .sidebar-header {
+            padding: 16px 16px 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            font-size: 1.8rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0,102,255,0.5);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* History section - now at the top (no new chat button) */
+        .history-section {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 8px 8px 8px;
+        }
+
+        .history-item {
+            padding: 12px 16px;
+            margin: 4px 8px;
+            border-radius: 24px;
+            color: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .history-item:hover {
+            background: var(--sidebar-hover);
+        }
+
+        .history-item i {
+            width: 20px;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* WORKING BUTTONS */
+        .sidebar-btn, .theme-toggle-side {
+            padding: 12px 16px;
+            border-radius: 40px;
+            background: rgba(0,102,255,0.1);
+            border: 1px solid rgba(0,102,255,0.2);
+            color: var(--sidebar-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+
+        .sidebar-btn:hover, .theme-toggle-side:hover {
+            background: rgba(0,102,255,0.2);
+            border-color: var(--accent);
+        }
+
+        .sidebar-btn i, .theme-toggle-side i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+        .theme-toggle-side {
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        /* ----- MAIN PANEL ----- */
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+
+        .navbar {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--nav-bg);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .nav-left h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-left h1 span {
+            background: var(--accent);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            box-shadow: 0 0 10px rgba(0,102,255,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 40px;
+            background: rgba(0,102,255,0.05);
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0,102,255,0.1);
+            border-color: var(--accent-light);
+        }
+
+        .nav-links i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* chat box */
+        .chat-box {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            padding: 16px 22px;
+            border-radius: 24px;
+            max-width: 80%;
+            line-height: 1.5;
+            animation: msgPop 0.25s ease;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+
+        @keyframes msgPop {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,102,255,0.3);
+        }
+
+        .bot {
+            background: var(--bot-msg-bg);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: var(--text-secondary);
+            margin: auto;
+            padding: 40px 20px;
+            max-width: 400px;
+        }
+
+        .welcome-message i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 16px;
+            text-shadow: 0 0 20px rgba(0,102,255,0.5);
+        }
+
+        /* chat input */
+        .chat-input-form {
+            display: flex;
+            padding: 20px 24px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            gap: 12px;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0,102,255,0.2);
+        }
+
+        .chat-input-form input {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .chat-input-form button {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 40px;
+            background: var(--accent);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,102,255,0.3);
+        }
+
+        .chat-input-form button:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 15px rgba(0,102,255,0.4);
+        }
+
+        .chat-input-form button.loading {
+            position: relative;
+            color: transparent;
+        }
+        .chat-input-form button.loading::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            top: 50%;
+            left: 50%;
+            margin-left: -9px;
+            margin-top: -9px;
+            border: 2px solid white;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* scrollbar */
+        .chat-box::-webkit-scrollbar { width: 8px; }
+        .chat-box::-webkit-scrollbar-track { background: var(--scroll-track); border-radius: 10px; }
+        .chat-box::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        .chat-box::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        /* feedback modal */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-modal.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--bg-primary);
+            width: 450px;
+            max-width: 90%;
+            border-radius: 24px;
+            padding: 28px;
+            z-index: 1001;
+            box-shadow: 0 20px 60px rgba(0,102,255,0.3);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h3 i {
+            color: var(--accent);
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .feedback-form-modal {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feedback-form-modal input,
+        .feedback-form-modal textarea {
+            padding: 14px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: 0.15s;
+            width: 100%;
+        }
+
+        .feedback-form-modal textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .feedback-form-modal input:focus,
+        .feedback-form-modal textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0,102,255,0.2);
+        }
+
+        .feedback-form-modal button {
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .feedback-form-modal button:hover {
+            background: var(--accent-hover);
+        }
+
+        /* mobile responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                bottom: 0;
+                z-index: 100;
+                transition: left 0.3s ease;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-stethoscope"></i>
+            <h2>Laptop Doctor</h2>
+        </div>
+
+        <!-- ONLY HISTORY SECTION - New chat option removed -->
+        <div class="history-section">
+            <div class="history-item" onclick="window.location.href='/history?chat=macbook'">
+                <i class="fas fa-comment"></i>
+                View all History
+            </div>
+<!--            <div class="history-item" onclick="window.location.href='/history?chat=screen'">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Screen flickering-->
+<!--            </div>-->
+<!--            <div class="history-item" onclick="window.location.href='/history?chat=battery'">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Battery draining fast-->
+<!--            </div>-->
+<!--            <div class="history-item" onclick="window.location.href='/history?chat=overheating'">-->
+<!--                <i class="fas fa-comment"></i>-->
+<!--                Overheating problem-->
+<!--            </div>-->
+<!--            <div class="history-item" onclick="window.location.href='/history'">-->
+<!--                <i class="fas fa-history"></i>-->
+<!--                View all history-->
+<!--            </div>-->
+        </div>
+
+        <div class="sidebar-footer">
+            <!-- CLEAR CHAT - works -->
+            <div class="sidebar-btn" onclick="clearChat()">
+                <i class="fas fa-rotate-right"></i>
+                <span>Clear chat</span>
+            </div>
+
+            <!-- GIVE FEEDBACK - works -->
+            <div class="sidebar-btn" onclick="openFeedbackModal()">
+                <i class="fas fa-comment"></i>
+                <span>Give Feedback</span>
+            </div>
+
+            <!-- THEME TOGGLE - works -->
+            <div class="theme-toggle-side" id="sidebarThemeToggle">
+                <i class="fas fa-sun" id="sidebarThemeIcon"></i>
+                <span id="sidebarThemeText">Light mode</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main-panel">
+        <div class="navbar">
+            <div class="nav-left">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>
+                    🔧 Laptop Doctor AI
+                    <span>v2.0</span>
+                </h1>
+            </div>
+            <div class="nav-links">
+                <a href="/history"><i class="fas fa-history"></i> History</a>
+                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            </div>
+        </div>
+
+        <!-- CHAT MESSAGES -->
+        <div class="chat-box" id="chatBox">
+            {% if not chat_history %}
+            <div class="welcome-message">
+                <i class="fas fa-stethoscope"></i>
+                <h3>How can I help with your laptop today?</h3>
+                <p style="color: var(--text-secondary); margin-top: 8px;">Describe your issue and I'll help you fix it.</p>
+            </div>
+            {% else %}
+                {% for chat in chat_history %}
+                <div class="message user">{{ chat.user }}</div>
+                <div class="message bot">{{ chat.bot }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- CHAT INPUT FORM -->
+        <form method="POST" class="chat-input-form" onsubmit="return handleSubmit(this)">
+            <div class="input-wrapper">
+                <input type="text" name="message" placeholder="Message Laptop Doctor..." autocomplete="off" required>
+            </div>
+            <button type="submit" id="sendBtn">
+                <i class="fas fa-arrow-up"></i> Send
+            </button>
+        </form>
+    </div>
+
+    <!-- FEEDBACK MODAL -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="modal-overlay" onclick="closeFeedbackModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-pen"></i>
+                    Share Feedback
+                </h3>
+                <button class="close-modal" onclick="closeFeedbackModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/submit_feedback" class="feedback-form-modal">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="email" name="email" placeholder="Your email" required>
+                    <textarea name="feedback" placeholder="How can Laptop Doctor improve?" required></textarea>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Submit feedback
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toggle sidebar (mobile)
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // Feedback modal controls
+    function openFeedbackModal() {
+        document.getElementById('feedbackModal').classList.add('show');
+    }
+    function closeFeedbackModal() {
+        document.getElementById('feedbackModal').classList.remove('show');
+    }
+
+    // CLEAR CHAT FUNCTION
+    function clearChat() {
+        const chatBox = document.getElementById('chatBox');
+
+        // Clear all messages
+        chatBox.innerHTML = '';
+
+        // Add welcome message back
+        const welcomeDiv = document.createElement('div');
+        welcomeDiv.className = 'welcome-message';
+        welcomeDiv.innerHTML = `
+            <i class="fas fa-stethoscope"></i>
+            <h3>How can I help with your laptop today?</h3>
+            <p style="color: var(--text-secondary); margin-top: 8px;">Describe your issue and I'll help you fix it.</p>
+        `;
+        chatBox.appendChild(welcomeDiv);
+    }
+
+    // Handle form submit with loading animation
+    function handleSubmit(form) {
+        const input = form.querySelector('input[name="message"]');
+        const button = form.querySelector('button[type="submit"]');
+        if (!input.value.trim()) return false;
+        button.classList.add('loading');
+        button.textContent = '';
+        return true;
+    }
+
+    // Theme toggle
+    const sidebarThemeToggle = document.getElementById('sidebarThemeToggle');
+    const sidebarThemeIcon = document.getElementById('sidebarThemeIcon');
+    const sidebarThemeText = document.getElementById('sidebarThemeText');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('laptopDoctorTheme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark');
+        sidebarThemeIcon.className = 'fas fa-moon';
+        sidebarThemeText.innerText = 'Dark mode';
+    }
+
+    sidebarThemeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        const isDark = body.classList.contains('dark');
+        if (isDark) {
+            sidebarThemeIcon.className = 'fas fa-moon';
+            sidebarThemeText.innerText = 'Dark mode';
+            localStorage.setItem('laptopDoctorTheme', 'dark');
+        } else {
+            sidebarThemeIcon.className = 'fas fa-sun';
+            sidebarThemeText.innerText = 'Light mode';
+            localStorage.setItem('laptopDoctorTheme', 'light');
+        }
+    });
+
+    // Auto-scroll chat
+    const chatBox = document.getElementById('chatBox');
+    if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+    const observer = new MutationObserver(() => {
+        if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+    });
+    if (chatBox) observer.observe(chatBox, { childList: true, subtree: true });
+
+    // Reset send button on page load
+    window.addEventListener('load', function() {
+        const sendBtn = document.getElementById('sendBtn');
+        if (sendBtn) {
+            sendBtn.classList.remove('loading');
+            sendBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Send';
+        }
+    });
+
+    // Enter key to send
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                form.submit();
+            }
+        });
+    });
+
+    // Escape closes modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeFeedbackModal();
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        const sidebar = document.getElementById('sidebar');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        if (window.innerWidth <= 768) {
+            if (!sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
