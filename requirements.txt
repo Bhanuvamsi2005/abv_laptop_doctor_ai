@@ -1,6 +1,10 @@
 Flask
-sentence-transformers
 numpy
+scikit-learn
+sentence-transformers
 python-dotenv
 google-generativeai
 gunicorn
+
+torch==2.10.0+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
